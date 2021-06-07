@@ -19,31 +19,34 @@
 <table class="table">
         <thead>
         
+          
+
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Iteracion</th>
+            <th scope="col">Columna Pivote</th>
+            <th scope="col">Fila Pivote</th>
+            <th scope="col">Matriz</th>
           </tr>
         </thead>
         <tbody>
+          {% if solution %}
+        
+          {% for solucion in solution %}
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <th scope="row">{{ solucion.iter }}</th>
+            <td>{{ solucion.pivot }}</td>
+            <td>{{ solucion.pivot }}</td>
+            <td>{{ solucion.tableu }}</td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
+
+          {% endfor %}
+
+          {% else %}
+
+          <h1>No se pudo cargar o encontrar solucion</h1>
+
+          {% endif %}
+
         </tbody>
       </table>
 
