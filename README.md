@@ -1,6 +1,6 @@
 # metodo-simplex
 
-# deploy 
+# init 
 
   create virtual envioromentwith the comand
 
