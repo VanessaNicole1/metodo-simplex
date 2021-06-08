@@ -48,12 +48,13 @@ def calculo(request):
             tabla.add_constraint(restric, rta)
 
         response, rta  = tabla.solve()
-        tamano = restricts + 2
+        tamano = restricts
+        varis = variables
         print(response)  # only for see how return data please delete this
         print(rta)
         
     return render(
-        request, "sol.html", context={"solution": response, "response":rta,"tam": tamano}
+        request, "sol.html", context={"solution": response, "response":rta, "tam": range(tamano), "x": range(varis)}
     )  # iter solution to present response
 
     # *******EXAMPLE OF RESPONSE**********

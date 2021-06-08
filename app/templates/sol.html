@@ -17,35 +17,64 @@
   <h1 style="padding-top: 50px; padding-bottom: 50px">Método Simplex Solución</h1>
 
   <div class="container">
+    {% for solucion in solution %}
 
+    <table class="table">
+
+      <thead>
+        <tr>
+          <th scope="col">Iteración</th>
+          <th scope="col">Columna Pivote</th>
+          <th scope="col">Fila Pivote</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <TD>{{ solucion.iter|add:"1" }}</TD>
+          <TD>{{ solucion.pivot.0 }}</TD>
+          <TD>{{ solucion.pivot.1 }}</TD>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="h5">Matriz</p>
 
     <TABLE class="table table-bordered">
+      <thead>
+        <TR>
+          <th>Z</th>
+          {% for i in x %}
+          <th>X{{i}}</th>
+          {% endfor %}
+          {% for j in tam %}
+          <th>S{{j}}</th>
+          {% endfor %}
+          <th>R</th>
+        </TR>
+      </thead>
+      <tbody>
+        {% for k in solucion.tableu %}
 
-      {% for solucion in solution %}
+        <TR>
+          {%for l in k%}
+          <TD>{{ l }}</TD>
+          {%endfor%}
+        </TR>
 
-      <TR>
-        <th scope="col">Iteración</th>
-        <TD>{{ solucion.iter|add:"1" }}</TD>
-      </TR>
-      <TR>
-        <th scope="col">Columna Pivote</th>
-        <TD>{{ solucion.pivot.0 }}</TD>
-      </TR>
-      <TR>
-        <th scope="col">Fila Pivote</th>
-        <TD>{{ solucion.pivot.1 }}</TD>
-      </TR>
-      
-      <TR>
-        <th scope="col" rowspan="{{tam}}">Matriz</th>        
-      </TR>
-      {% for i in solucion.tableu %}
-      <TR>
-        <TD>{{ i }}</TD>
-      </TR>
-      {% endfor %}
-      {% endfor %}
+        {% endfor %}
+      </tbody>
+
+
+
     </TABLE>
+
+    {% endfor %}
+
+    <div class="alert alert-primary" role="alert">
+      <p class="h4">Solución</p>
+      {{response}}
+    </div>
+
 
     <form method='GET' action="/">
       {% csrf_token %}

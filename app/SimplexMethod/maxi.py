@@ -42,7 +42,7 @@ class Tableau:
     
     def display(self):
         matriz = matrix([self.obj] + self.rows)
-        self.final_response['obj']= self.obj[-1];
+        self.final_response['z']= self.obj[-1];
         count =0;
         for row in self.rows:
             self.final_response['x'+str(count)]=row[-1]
