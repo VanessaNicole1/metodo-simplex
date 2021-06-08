@@ -55,7 +55,6 @@ class Tableau:
         'iter':self.iter,
         'pivot':pivot,
         'tableu':tableu,
-        'response':self.final_response
       };
       self.iter= self.iter+1;
       return response_data
@@ -92,4 +91,5 @@ class Tableau:
             f_rta= self.format_response([c+1,r+2],self.display());
             self.response_iter.append(f_rta);
 
+        self.response_iter['response']=self.final_response
         return self.response_iter
