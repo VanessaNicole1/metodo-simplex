@@ -91,5 +91,4 @@ class Tableau:
             f_rta= self.format_response([c+1,r+2],self.display());
             self.response_iter.append(f_rta);
 
-        self.response_iter.append({'response':self.final_response})
-        return self.response_iter
+        return self.response_iter,self.final_response
