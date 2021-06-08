@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static " css/style.css" %}">
+
 </head>
+
 <body>
 
-    <h1>Método Simplex Solution</h1>
+  <h1 style="padding-top: 50px; padding-bottom: 50px">Método Simplex Solución</h1>
 
-    <div class="container">
-    
-    
-<table class="table">
-        <thead>
-        
-          
+  <div class="container">
 
-          <tr>
-            <th scope="col">Iteracion</th>
-            <th scope="col">Columna Pivote</th>
-            <th scope="col">Fila Pivote</th>
-            <th scope="col">Matriz</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if solution %}
-        
-          {% for solucion in solution %}
-          <tr>
-            <th scope="row">{{ solucion.iter }}</th>
-            <td>{{ solucion.pivot }}</td>
-            <td>{{ solucion.pivot }}</td>
-            <td>{{ solucion.tableu }}</td>
-          </tr>
 
-          {% endfor %}
+    <TABLE class="table table-bordered">
 
-          {% else %}
+      {% for solucion in solution %}
 
-          <h1>No se pudo cargar o encontrar solucion</h1>
+      <TR>
+        <th scope="col">Iteración</th>
+        <TD>{{ solucion.iter|add:"1" }}</TD>
+      </TR>
+      <TR>
+        <th scope="col">Columna Pivote</th>
+        <TD>{{ solucion.pivot.0 }}</TD>
+      </TR>
+      <TR>
+        <th scope="col">Fila Pivote</th>
+        <TD>{{ solucion.pivot.1 }}</TD>
+      </TR>
+      
+      <TR>
+        <th scope="col" rowspan="{{tam}}">Matriz</th>        
+      </TR>
+      {% for i in solucion.tableu %}
+      <TR>
+        <TD>{{ i }}</TD>
+      </TR>
+      {% endfor %}
+      {% endfor %}
+    </TABLE>
 
-          {% endif %}
+    <form method='GET' action="/">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary" style="margin: 20px;">Calcular una función nueva</button>
+    </form>
 
-        </tbody>
-      </table>
 
-      </div>
+
+  </div>
+
+
+
 </body>
+
 </html>
