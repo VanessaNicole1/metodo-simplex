@@ -48,10 +48,11 @@ def calculo(request):
             tabla.add_constraint(restric, rta)
 
         response = tabla.solve()
+        tamano = restricts + 2
         print(response)  # only for see how return data please delete this
 
     return render(
-        request, "sol.html", context={"solution": response}
+        request, "sol.html", context={"solution": response, "tam": tamano}
     )  # iter solution to present response
 
     # *******EXAMPLE OF RESPONSE**********
@@ -84,5 +85,3 @@ def calculo(request):
     #
     #
 
-
-# Create your views here.
