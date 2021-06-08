@@ -11,7 +11,9 @@ class Tableau:
         self.rows = []
         self.cons = []
         self.iter = 0
-        self.response=[]
+        self.response_iter=[]
+        self.final_response={}
+        
 
     def add_constraint(self, expression, value):
         self.rows.append([0] + expression)
@@ -40,14 +42,20 @@ class Tableau:
     
     def display(self):
         matriz = matrix([self.obj] + self.rows)
-        print ('\n', matriz)
+        self.final_response['obj']= self.obj[-1];
+        count =0;
+        for row in self.rows:
+            self.final_response['x'+str(count)]=row[-1]
+            count=count+1
+
         return matriz.tolist();
       
     def format_response(self,pivot,tableu):
       response_data = {
         'iter':self.iter,
         'pivot':pivot,
-        'tableu':tableu
+        'tableu':tableu,
+        'response':self.final_response
       };
       self.iter= self.iter+1;
       return response_data
@@ -75,13 +83,13 @@ class Tableau:
         self.obj = array(self.obj + [0], dtype=float)
         # solve
         f_rta= self.format_response([-1,-1],self.display());
-        self.response.append(f_rta);
+        self.response_iter.append(f_rta);
         while not self._check():
             c = self._pivot_column()
             r = self._pivot_row(c)
             self._pivot(r,c)
             print ('\npivot column: %s\npivot row: %s'%(c+1,r+2))
             f_rta= self.format_response([c+1,r+2],self.display());
-            self.response.append(f_rta);
+            self.response_iter.append(f_rta);
 
-        return self.response
+        return self.response_iter
