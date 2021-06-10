@@ -81,7 +81,7 @@ class Tableau:
             self.rows[i] = array(self.rows[i], dtype=float)
         self.obj = array(self.obj + [0], dtype=float)
         # solve
-        f_rta= self.format_response([-1,-1],self.display());
+        f_rta= self.format_response([],self.display());
         self.response_iter.append(f_rta);
         while not self._check():
             c = self._pivot_column()

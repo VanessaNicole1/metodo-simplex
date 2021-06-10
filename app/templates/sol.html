@@ -30,7 +30,11 @@
       </thead>
       <tbody>
         <tr>
-          <TD>{{ solucion.iter|add:"1" }}</TD>
+          {% if solucion.iter == 0 %}
+          <TD style="color: blueviolet; font-size: large; font-weight: bold;">Matriz Inicial</TD>
+          {% else %}
+          <TD>{{ solucion.iter }}</TD>
+          {% endif %}
           <TD>{{ solucion.pivot.0 }}</TD>
           <TD>{{ solucion.pivot.1 }}</TD>
         </tr>
@@ -64,8 +68,6 @@
         {% endfor %}
       </tbody>
 
-
-
     </TABLE>
 
     {% endfor %}
@@ -81,11 +83,7 @@
       <button type="submit" class="btn btn-primary" style="margin: 20px;">Calcular una función nueva</button>
     </form>
 
-
-
   </div>
-
-
 
 </body>
 
