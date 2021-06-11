@@ -19,7 +19,7 @@ class Tableau:
         self.rows.append([0] + expression)
         self.cons.append(value)
 
-    def _pivot_column(self):
+    def _columna_pivot(self):
         low = 0
         idx = 0
         for i in range(1, len(self.obj)-1):
@@ -29,7 +29,7 @@ class Tableau:
         if idx == 0: return -1
         return idx
 
-    def _pivot_row(self, col):
+    def _fila_pivot(self, col):
         rhs = [self.rows[i][-1] for i in range(len(self.rows))]
         lhs = [self.rows[i][col] for i in range(len(self.rows))]
         ratio = []
@@ -43,10 +43,6 @@ class Tableau:
     def display(self):
         matriz = matrix([self.obj] + self.rows)
         self.final_response['z']= self.obj[-1];
-        count =0;
-        for row in self.rows:
-            self.final_response['x'+str(count)]=row[-1]
-            count=count+1
 
         return matriz.tolist();
       
@@ -82,13 +78,37 @@ class Tableau:
         self.obj = array(self.obj + [0], dtype=float)
         # solve
         f_rta= self.format_response([],self.display());
+        response_variables=[]
         self.response_iter.append(f_rta);
         while not self._check():
-            c = self._pivot_column()
-            r = self._pivot_row(c)
-            self._pivot(r,c)
-            print ('\npivot column: %s\npivot row: %s'%(c+1,r+2))
-            f_rta= self.format_response([c+1,r+2],self.display());
+            columna = self._columna_pivot()
+            print("columna",columna)
+            
+            fila = self._fila_pivot(columna)
+            print("fila",fila)
+            self._pivot(fila,columna)
+            
+            response_variables.append([columna,fila]);
+            print ('\npivot column: %s\npivot row: %s'%(columna+1,fila+2))
+            f_rta= self.format_response([columna+1,fila+2],self.display());
             self.response_iter.append(f_rta);
 
+        self.define_final_rtas(response_variables)
         return self.response_iter,self.final_response
+
+
+
+    def define_final_rtas(self, response_pairs):
+        for pairs in response_pairs:
+            col = pairs[0]
+            fil = pairs[1]
+            if col <= len(self.cons): 
+                self.final_response['x'+str(col-1)] = self.rows[fil][-1]
+            else:
+                self.final_response['s'+str(col-1)] = self.rows[fil][-1]
+
+## EXAMPLE
+#t = Tableau([-50,-80])
+#t.add_constraint([1, 2], 120)
+#t.add_constraint([1, 1], 90)
+#print(t.solve())
