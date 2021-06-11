@@ -7,6 +7,7 @@ set_printoptions(formatter={'float_kind':float_formatter})
 
 class Tableau:
     def __init__(self, obj):
+        self.dimension_cons = 0
         self.obj = [1] + obj
         self.rows = []
         self.cons = []
@@ -17,6 +18,7 @@ class Tableau:
 
     def add_constraint(self, expression, value):
         self.rows.append([0] + expression)
+        self.dimension_cons= len(expression)
         self.cons.append(value)
 
     def _columna_pivot(self):
@@ -99,12 +101,22 @@ class Tableau:
 
 
     def define_final_rtas(self, response_pairs):
+        longitud = len(self.obj)
+        for i in range(longitud-2):
+            if (i+1) <= self.dimension_cons:
+                self.final_response['x'+str(i)] = 0
+            else:
+                self.final_response['s'+str(i-self.dimension_cons)] = self.rows[i-self.dimension_cons][-1]
+
         for pairs in response_pairs:
             col = pairs[0]
             fil = pairs[1]
-            if col <= len(self.obj): 
+            print(pairs)
+            print(self.dimension_cons)
+            if col <= self.dimension_cons: 
                 self.final_response['x'+str(col-1)] = self.rows[fil][-1]
+                self.final_response['s'+str(col-1)] = 0
             else:
                 self.final_response['s'+str(col-1)] = self.rows[fil][-1]
+                self.final_response['x'+str(col-1)] = 0
 
-#ptrabajo
