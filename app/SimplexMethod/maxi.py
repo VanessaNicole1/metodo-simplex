@@ -102,13 +102,9 @@ class Tableau:
         for pairs in response_pairs:
             col = pairs[0]
             fil = pairs[1]
-            if col <= len(self.cons): 
+            if col <= len(self.obj): 
                 self.final_response['x'+str(col-1)] = self.rows[fil][-1]
             else:
                 self.final_response['s'+str(col-1)] = self.rows[fil][-1]
 
-## EXAMPLE
-#t = Tableau([-50,-80])
-#t.add_constraint([1, 2], 120)
-#t.add_constraint([1, 1], 90)
-#print(t.solve())
+#ptrabajo
