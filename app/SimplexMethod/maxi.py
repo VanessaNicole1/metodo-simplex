@@ -84,14 +84,14 @@ class Tableau:
         self.response_iter.append(f_rta);
         while not self._check():
             columna = self._columna_pivot()
-            print("columna",columna)
+            #print("columna",columna)
             
             fila = self._fila_pivot(columna)
-            print("fila",fila)
+            #print("fila",fila)
             self._pivot(fila,columna)
             
             response_variables.append([columna,fila]);
-            print ('\npivot column: %s\npivot row: %s'%(columna+1,fila+2))
+            #print ('\npivot column: %s\npivot row: %s'%(columna+1,fila+2))
             f_rta= self.format_response([columna+1,fila+2],self.display());
             self.response_iter.append(f_rta);
 
@@ -111,8 +111,8 @@ class Tableau:
         for pairs in response_pairs:
             col = pairs[0]
             fil = pairs[1]
-            print(pairs)
-            print(self.dimension_cons)
+            #print(pairs)
+            #print(self.dimension_cons)
             if col <= self.dimension_cons: 
                 self.final_response['x'+str(col-1)] = self.rows[fil][-1]
                 self.final_response['s'+str(col-1)] = 0
